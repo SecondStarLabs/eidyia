@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  rating.decimal: MyString
+  no_of_reviews: 1
+  address: MyString
+  street_one: MyString
+  street_two: MyString
+  city: one
+  min_wait: 1
+  max_wait: 1
+  delivery.decimal: MyString
+
+two:
+  name: MyString
+  rating.decimal: MyString
+  no_of_reviews: 1
+  address: MyString
+  street_one: MyString
+  street_two: MyString
+  city: two
+  min_wait: 1
+  max_wait: 1
+  delivery.decimal: MyString

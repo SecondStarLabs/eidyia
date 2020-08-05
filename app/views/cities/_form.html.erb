@@ -1,0 +1,109 @@
+<%= form_with(model: city, local: true) do |form| %>
+  <% if city.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(city.errors.count, "error") %> prohibited this city from being saved:</h2>
+
+      <ul>
+      <% city.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :city_ascii %>
+    <%= form.text_field :city_ascii, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :state_id %>
+    <%= form.text_field :state_id, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :state_name %>
+    <%= form.text_field :state_name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :county_fips %>
+    <%= form.number_field :county_fips, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :county_fips_all %>
+    <%= form.number_field :county_fips_all, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :county_name_all %>
+    <%= form.text_field :county_name_all, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :lat %>
+    <%= form.text_field :lat, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :lng %>
+    <%= form.text_field :lng, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :population %>
+    <%= form.number_field :population, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :density %>
+    <%= form.number_field :density, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :source %>
+    <%= form.text_field :source, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :military %>
+    <%= form.check_box :military, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :incorporated %>
+    <%= form.check_box :incorporated, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :timezone %>
+    <%= form.text_field :timezone, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :ranking %>
+    <%= form.number_field :ranking, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :zips %>
+    <%= form.text_field :zips, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <% if city.persisted? %>
+      <div class="float-right">
+        <%= link_to 'Destroy', city, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if city.persisted? %>
+      <%= link_to "Cancel", city, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", cities_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>

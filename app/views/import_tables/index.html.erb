@@ -1,0 +1,43 @@
+
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Import_tables</h1>
+  </div>
+
+  <div class="col-sm-6 text-right">
+  <%= link_to new_import_table_path, class: 'btn btn-primary' do %>
+    Add New Import table
+  <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+    
+
+            <th>Original path</th>
+            
+          <th></th>
+        
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @import_tables.each do |import_table| %>
+        <%= content_tag :tr, id: dom_id(import_table), class: dom_class(import_table) do %>
+          
+
+                      <td><%= import_table.original_path %></td>
+          
+          
+            <td><%= link_to 'Show', import_table %></td>
+          
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

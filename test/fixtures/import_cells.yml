@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  import_table: one
+  row_index: 1
+  column_index: 1
+  contents: MyString
+
+two:
+  import_table: two
+  row_index: 1
+  column_index: 1
+  contents: MyString

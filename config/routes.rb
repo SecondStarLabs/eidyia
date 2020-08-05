@@ -1,6 +1,14 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :eateries
+  resources :import_tables
+  get 'csv/import'
+  post "csv/import" => 'csv#upload'
+  
+  resources :places
+  resources :people
+  resources :cities
   namespace :admin do
     resources :users
     resources :announcements

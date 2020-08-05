@@ -1,0 +1,60 @@
+<div class="page-header">
+  <%= link_to cities_path, class: 'btn btn-default' do %>
+    All Cities
+  <% end %>
+  <%= link_to edit_city_path(@city), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show city</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>City ascii:</dt>
+  <dd><%= @city.city_ascii %></dd>
+
+  <dt>State:</dt>
+  <dd><%= @city.state_id %></dd>
+
+  <dt>State name:</dt>
+  <dd><%= @city.state_name %></dd>
+
+  <dt>County fips:</dt>
+  <dd><%= @city.county_fips %></dd>
+
+  <dt>County fips all:</dt>
+  <dd><%= @city.county_fips_all %></dd>
+
+  <dt>County name all:</dt>
+  <dd><%= @city.county_name_all %></dd>
+
+  <dt>Lat:</dt>
+  <dd><%= @city.lat %></dd>
+
+  <dt>Lng:</dt>
+  <dd><%= @city.lng %></dd>
+
+  <dt>Population:</dt>
+  <dd><%= @city.population %></dd>
+
+  <dt>Density:</dt>
+  <dd><%= @city.density %></dd>
+
+  <dt>Source:</dt>
+  <dd><%= @city.source %></dd>
+
+  <dt>Military:</dt>
+  <dd><%= @city.military %></dd>
+
+  <dt>Incorporated:</dt>
+  <dd><%= @city.incorporated %></dd>
+
+  <dt>Timezone:</dt>
+  <dd><%= @city.timezone %></dd>
+
+  <dt>Ranking:</dt>
+  <dd><%= @city.ranking %></dd>
+
+  <dt>Zips:</dt>
+  <dd><%= @city.zips %></dd>
+
+</dl>

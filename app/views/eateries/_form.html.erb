@@ -1,0 +1,79 @@
+<%= form_with(model: eatery, local: true) do |form| %>
+  <% if eatery.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(eatery.errors.count, "error") %> prohibited this eatery from being saved:</h2>
+
+      <ul>
+      <% eatery.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :rating.decimal %>
+    <%= form.text_field :rating.decimal, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :no_of_reviews %>
+    <%= form.number_field :no_of_reviews, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :address %>
+    <%= form.text_field :address, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :street_one %>
+    <%= form.text_field :street_one, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :street_two %>
+    <%= form.text_field :street_two, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :city_id %>
+    <%= form.text_field :city_id, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :min_wait %>
+    <%= form.number_field :min_wait, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :max_wait %>
+    <%= form.number_field :max_wait, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :delivery.decimal %>
+    <%= form.text_field :delivery.decimal, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <% if eatery.persisted? %>
+      <div class="float-right">
+        <%= link_to 'Destroy', eatery, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if eatery.persisted? %>
+      <%= link_to "Cancel", eatery, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", eateries_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>

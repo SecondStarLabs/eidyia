@@ -1,0 +1,42 @@
+<div class="page-header">
+  <%= link_to eateries_path, class: 'btn btn-default' do %>
+    All Eateries
+  <% end %>
+  <%= link_to edit_eatery_path(@eatery), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show eatery</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @eatery.name %></dd>
+
+  <dt>Rating.decimal:</dt>
+  <dd><%= @eatery.rating.decimal %></dd>
+
+  <dt>No of reviews:</dt>
+  <dd><%= @eatery.no_of_reviews %></dd>
+
+  <dt>Address:</dt>
+  <dd><%= @eatery.address %></dd>
+
+  <dt>Street one:</dt>
+  <dd><%= @eatery.street_one %></dd>
+
+  <dt>Street two:</dt>
+  <dd><%= @eatery.street_two %></dd>
+
+  <dt>City:</dt>
+  <dd><%= @eatery.city %></dd>
+
+  <dt>Min wait:</dt>
+  <dd><%= @eatery.min_wait %></dd>
+
+  <dt>Max wait:</dt>
+  <dd><%= @eatery.max_wait %></dd>
+
+  <dt>Delivery.decimal:</dt>
+  <dd><%= @eatery.delivery.decimal %></dd>
+
+</dl>

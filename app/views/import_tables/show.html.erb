@@ -1,0 +1,15 @@
+<div class="page-header">
+  <%= link_to import_tables_path, class: 'btn btn-default' do %>
+    All Import_tables
+  <% end %>
+  <%= link_to edit_import_table_path(@import_table), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show import_table</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Original path:</dt>
+  <dd><%= @import_table.original_path %></dd>
+
+</dl>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_03_210800) do
+ActiveRecord::Schema.define(version: 2020_08_04_224713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,44 @@ ActiveRecord::Schema.define(version: 2020_08_03_210800) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "city_ascii"
+    t.string "state_id"
+    t.string "state_name"
+    t.integer "county_fips"
+    t.integer "county_fips_all"
+    t.string "county_name_all"
+    t.float "lat"
+    t.float "lng"
+    t.integer "population"
+    t.integer "density"
+    t.string "source"
+    t.boolean "military"
+    t.boolean "incorporated"
+    t.string "timezone"
+    t.integer "ranking"
+    t.string "zips"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "eateries", force: :cascade do |t|
+    t.string "name"
+    t.decimal "rating"
+    t.integer "no_of_reviews"
+    t.string "address"
+    t.string "street_one"
+    t.string "street_two"
+    t.bigint "city_id", null: false
+    t.integer "min_wait"
+    t.integer "max_wait"
+    t.decimal "delivery"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "source_url"
+    t.index ["city_id"], name: "index_eateries_on_city_id"
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -56,6 +94,22 @@ ActiveRecord::Schema.define(version: 2020_08_03_210800) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "import_cells", force: :cascade do |t|
+    t.bigint "import_table_id", null: false
+    t.integer "row_index"
+    t.integer "column_index"
+    t.string "contents"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["import_table_id"], name: "index_import_cells_on_import_table_id"
+  end
+
+  create_table "import_tables", force: :cascade do |t|
+    t.string "original_path"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.bigint "recipient_id"
     t.bigint "actor_id"
@@ -63,6 +117,19 @@ ActiveRecord::Schema.define(version: 2020_08_03_210800) do
     t.string "action"
     t.bigint "notifiable_id"
     t.string "notifiable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -98,5 +165,7 @@ ActiveRecord::Schema.define(version: 2020_08_03_210800) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "eateries", "cities"
+  add_foreign_key "import_cells", "import_tables"
   add_foreign_key "services", "users"
 end
