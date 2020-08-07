@@ -41,15 +41,15 @@
             <td><%= link_to eatery.name, eatery %></td>
           
 
-                      <td><%= eatery.rating.decimal %></td>
+                      <td><%= eatery.rating %></td>
                       <td><%= eatery.no_of_reviews %></td>
                       <td><%= eatery.address %></td>
                       <td><%= eatery.street_one %></td>
                       <td><%= eatery.street_two %></td>
-                      <td><%= eatery.city %></td>
+                      <td><%= "#{eatery.city.city_ascii}, #{eatery.city.state_name}" %></td>
                       <td><%= eatery.min_wait %></td>
                       <td><%= eatery.max_wait %></td>
-                      <td><%= eatery.delivery.decimal %></td>
+                      <td><%= eatery.delivery %></td>
           
           
         <% end %>

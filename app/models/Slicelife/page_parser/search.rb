@@ -19,7 +19,7 @@ class Slicelife::PageParser::Search
             shop_stats = _get_shop_stats(link)
             # puts shop_stats
             
-            shop_hash = {link_href: link_href, img_src: img_src, location_name: location_name, location_rating: location_rating, no_reviews: no_reviews}
+            shop_hash = {link_href: link_href, img_src: img_src, location_name: location_name, location_rating: location_rating, no_reviews: no_reviews, address: address}
             # puts shop_hash
             shop = shop_hash.merge(shop_stats) #OpenStruct.new(shop_hash)
             shops << shop
