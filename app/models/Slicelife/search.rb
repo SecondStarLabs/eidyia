@@ -44,27 +44,6 @@ class Slicelife::Search
         shops
     end
 
-
-    def _transform_list_to_objects()
-        pallete = MeodaiResponseFormatter::Pallette.new
-        colors = []
-        _load_color_list.each do |color_info|
-            # convert hash to an OpenStruct
-            color = MeodaiResponseFormatter::Color.new 
-            Doppelganger::MeodaiColorRepresenter
-                .new(color)
-                .from_json(color_info.to_json)
-
-            #make color.name more accessible
-            downcase_color_name = color.name.downcase
-            color.name = downcase_color_name
-
-            colors << color
-        end
-        pallete.colors = colors
-        pallete
-    end
-
     def _create_address
         # 'Salt Lake City, UT, USA'
         address = [city, state_abbr, "USA"].join(", ")
