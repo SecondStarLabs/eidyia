@@ -8,20 +8,22 @@ class Slicelife::PageParser::Search
         shops = []
         @fragment.css('._1j8jxoz').each do |link|
             puts "found link"
-            link_href = link.attributes["href"].value.to_s
-            img_src = link.css('._19wyhi7').css('img').attr('src').value.to_s
-            location_name = link.css('._1pkohes').css('p._1e3rlyy').text.to_s.strip
-            location_rating_and_no_reviews = link.css('._1pkohes').css('._1ezh8s1').text
-            location_rating = location_rating_and_no_reviews.split("(").first.to_f
-            no_reviews = location_rating_and_no_reviews.split("(").last.to_i
-            address = link.css('._1pkohes').css('._4qdonk').text.to_s
-            # order_minimum = link.css('._a9pofd').css('p._1nje18l')[0].text#.split("-").first.gsub(/[^\d\.]/, '').to_f
-            shop_stats = _get_shop_stats(link)
+            link_href                       = link.attributes["href"].value.to_s
+            img_src                         = link.css('._19wyhi7').css('img').attr('src').value.to_s
+            location_name                   = link.css('._1pkohes').css('p._1e3rlyy').text.to_s.strip
+            location_rating_and_no_reviews  = link.css('._1pkohes').css('._1ezh8s1').text
+            location_rating                 = location_rating_and_no_reviews.split("(").first.to_f
+            no_reviews                      = location_rating_and_no_reviews.split("(").last.to_i
+            address                         = link.css('._1pkohes').css('._4qdonk').text.to_s
+            parsed_address                  = _parse_address(address)
+            shop_stats                      = _get_shop_stats(link)
             # puts shop_stats
             
             shop_hash = {link_href: link_href, img_src: img_src, location_name: location_name, location_rating: location_rating, no_reviews: no_reviews, address: address}
             # puts shop_hash
-            shop = shop_hash.merge(shop_stats) #OpenStruct.new(shop_hash)
+            shop_hash = shop_hash.merge(shop_stats)
+            shop = shop_hash.merge(parsed_address)
+            # shop = shop.merge(parsed_address)
             shops << shop
         end
         # puts shops
@@ -57,5 +59,11 @@ class Slicelife::PageParser::Search
             # puts "SHOP STATS: #{shop_stats} "
         end
         shop_stats
+    end
+
+    def _parse_address(address)
+        city        = address.split(", ")[1]
+        state_abbr  = address.split(", ")[2]
+        {city: city, state_abbr: state_abbr}
     end
 end

@@ -27,6 +27,8 @@
             <th>Street one</th>
             <th>Street two</th>
             <th>City</th>
+            <th>State<br />Abbr</th>
+            <th>Assigned City, State</th>
             <th>Min wait</th>
             <th>Max wait</th>
             <th>Delivery.decimal</th>
@@ -46,6 +48,8 @@
                       <td><%= eatery.address %></td>
                       <td><%= eatery.street_one %></td>
                       <td><%= eatery.street_two %></td>
+                      <td><%= "#{eatery.address.split(", ")[1]}" %></td>
+                      <td><%= "#{eatery.address.split(", ")[2]}" %></td>
                       <td><%= "#{eatery.city.city_ascii}, #{eatery.city.state_name}" %></td>
                       <td><%= eatery.min_wait %></td>
                       <td><%= eatery.max_wait %></td>

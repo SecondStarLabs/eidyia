@@ -14,6 +14,8 @@ class Slicelife::Doppelganger::SearchResultRepesenter < Representable::Decorator
   property :location_rating
   property :no_reviews
   property :address
+  property :city
+  property :state_abbr
   property :order_minimum
   property :wait_time
   property :min_wait_time
