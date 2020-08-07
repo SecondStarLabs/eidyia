@@ -53,7 +53,7 @@ class Slicelife::Connection
         puts "======"
 
         browser.close
-        links_fragment
+        @doc
     end
 
     ################

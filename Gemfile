@@ -76,3 +76,4 @@ gem 'image_processing'
   #   data_collection
   gem 'watir', '~> 6.16', '>= 6.16.5'
   gem 'webdrivers', '~> 4.4', '>= 4.4.1'
+  gem 'representable', '~> 3.0', '>= 3.0.4'
