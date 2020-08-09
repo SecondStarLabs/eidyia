@@ -27,6 +27,7 @@ class Slicelife::Connection
     end    
 
     def get(relative_path, query={})
+        @has_seach_results = true
         puts "relative_path: #{relative_path}, query=#{@query.merge(query)} "
         #\            call the connection for records
     # connection.send(http_method, relative_path, *request_arguments)
@@ -42,15 +43,29 @@ class Slicelife::Connection
         #     # 'https://slicelife.com/shop/search?search_shipping_type_filter=either&address=San%20Francisco,%20CA,%20USA')
 
         puts browser.title
-        js_doc  = browser.div(class: /_8mjm61/).wait_until(&:present?)
 
-        @doc     = Nokogiri::HTML.parse(js_doc.inner_html)
-        puts "### Search for nodes by css"
-        # good_stuff =  doc.at_css('div._8mjm61')
-        # links_parent = @doc.css('._8mjm61')
-        links_fragment = @doc.css('._1j8jxoz').first
-        puts links_fragment
-        puts "======"
+        # wait and capture test results if they exist
+        begin
+            js_doc  = browser.div(class: /_8mjm61/).wait_until(timeout = 10, &:present?)
+        rescue
+            puts "waited more than three seconds without seeing search results"
+            @has_search_results = false
+            js_doc  = browser.div(id: /app/)
+
+            @doc     = Nokogiri::HTML.parse(js_doc.inner_html)
+            puts "### Failure, shops not found"
+            puts "======"
+        
+        end
+        
+        if @has_search_results != false
+            js_doc  = browser.div(class: /_8mjm61/).wait_until(&:present?)
+
+            @doc     = Nokogiri::HTML.parse(js_doc.inner_html)
+            puts "### Success, Search for nodes by css"
+            # links_fragment = @doc.css('._1j8jxoz').first
+            puts "======"
+        end
 
         browser.close
         @doc

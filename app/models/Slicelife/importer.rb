@@ -6,20 +6,21 @@ class Slicelife::Importer
     end
 
     def save_all
+        puts shops
         shops.each do |shop|
-            puts "shop location #{shop.location_name} "
-            eatery = Eatery.new(name: shop.location_name,
-                rating:         shop.location_rating,
-                no_of_reviews:  shop.no_reviews,
-                address:        shop.address,
-                street_one:     shop.address,
-                street_two:     shop.street_two,
-                min_wait:       shop.min_wait_time,
-                max_wait:       shop.max_wait_time,
-                delivery:       shop.delivery,                
-                source_url:     shop.link_href,
-                city:           _find_city(shop.address)
-            )
+            puts "shop location #{shop.location_name} , subscribed: #{shop.subscribed}"
+            eatery = Eatery.where(address: shop.address).first_or_initialize
+                eatery.name    = shop.location_name
+                parsed_address            =  _parse_address(shop.address)
+                eatery.street_one         = parsed_address[:street_one]
+                eatery.street_two         = ""
+                eatery.city               = _find_city(shop.address)
+                eatery.rating             = shop.location_rating
+                eatery.no_of_reviews      = shop.no_reviews
+                eatery.min_wait           = shop.min_wait_time
+                eatery.max_wait           = shop.max_wait_time
+                eatery.delivery           = shop.delivery
+                eatery.source_url         = shop.link_href                    
             eatery.save!
         end
     end
@@ -39,9 +40,11 @@ class Slicelife::Importer
     end
 
     def _parse_address(address)
-        city        = address.split(", ")[1]
-        state_abbr  = address.split(", ")[2]
-        {city: city, state_abbr: state_abbr}
+        address_array   = address.split(", ")
+        street_one  = address_array[0]
+        city        = address_array[1]
+        state_abbr  = address_array[2]
+        {street_one: street_one, city: city, state_abbr: state_abbr}
     end
 
 

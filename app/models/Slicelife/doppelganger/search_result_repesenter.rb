@@ -17,8 +17,11 @@ class Slicelife::Doppelganger::SearchResultRepesenter < Representable::Decorator
   property :city
   property :state_abbr
   property :order_minimum
+  property :order_minimum_low
+  property :order_minimum_high
   property :wait_time
   property :min_wait_time
   property :max_wait_time
   property :delivery
+  property :subscribed
 end
