@@ -9,7 +9,18 @@ class LocalSchool::PageParser::Search
         return if !@fragment.css('#tabSchooList').present?
         @fragment.css('#tabSchooList').css('tbody').css('tr').each do |row|
             puts "found link"
-            link_href                       = row.css('td').css('.sorting_1').css('span').text
+            link_href                       = row.css('td').css('.sorting_1').css('div').attr('data-url').value.to_s
+            school_id                       = row.css('td').css('.sorting_1').css('div').attr('data-sid').value.to_s
+            school_name                     = row.css('td').css('.sorting_1').css('div').attr('data-sch').value.to_s
+            type                            = row.css('td[2]').text
+            grades                          = row.css('td[3]').text
+            district                        = row.css('td[4]').css('a').text 
+            district_link                   = row.css('td[4]').css('a').attr('href').value.to_s 
+            enrollment                      = row.css('td[5]').text.to_i
+            student_teacher_ratio           = row.css('td[6]').text.to_f
+            free_discounted_lunch_recipients    = row.css('td[7]').attr('data-order').value.to_f
+            school_digger_rating                = row.css('td[8]').attr('data-order').value.to_f
+            # school_name                     = row.css('td').css('.sorting_1').css('div').attr('data-sch').value.to_s
         #     img_src                         = link.css('._19wyhi7').css('img').attr('src').value.to_s
         #     location_name                   = link.css('._1pkohes').css('p._1e3rlyy').text.to_s.strip
         #     location_rating_and_no_reviews  = link.css('._1pkohes').css('._1ezh8s1').text
@@ -20,7 +31,7 @@ class LocalSchool::PageParser::Search
         #     school_stats                      = _get_school_stats(link)
         #     # puts school_stats
             
-            school_hash = {link_href: link_href}#link_href}#, img_src: img_src, location_name: location_name, location_rating: location_rating, no_reviews: no_reviews, address: address}
+            school_hash = {link_href: link_href, school_id: school_id, school_name: school_name, type: type, grades: grades, district: district, district_link: district_link, enrollment: enrollment, student_teacher_ratio: student_teacher_ratio, free_discounted_lunch_recipients: free_discounted_lunch_recipients, school_digger_rating: school_digger_rating}
             puts school_hash
         #     school_hash = school_hash.merge(school_stats)
             school = school_hash#.merge(parsed_address)
