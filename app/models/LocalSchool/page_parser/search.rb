@@ -1,34 +1,35 @@
 require 'nokogiri'
-class Slicelife::PageParser::Search
+class LocalSchool::PageParser::Search
     def initialize(fragment: fragment)
         @fragment = fragment
     end
 
     def parse
-        shops = []
-        @fragment.css('._1j8jxoz').each do |link|
+        schools = []
+        return if !@fragment.css('#tabSchooList').present?
+        @fragment.css('#tabSchooList').css('tbody').css('tr').each do |row|
             puts "found link"
-            link_href                       = link.attributes["href"].value.to_s
-            img_src                         = link.css('._19wyhi7').css('img').attr('src').value.to_s
-            location_name                   = link.css('._1pkohes').css('p._1e3rlyy').text.to_s.strip
-            location_rating_and_no_reviews  = link.css('._1pkohes').css('._1ezh8s1').text
-            location_rating                 = location_rating_and_no_reviews.split("(").first.to_f
-            no_reviews                      = location_rating_and_no_reviews.split("(").last.to_i
-            address                         = link.css('._1pkohes').css('._4qdonk').text.to_s
-            parsed_address                  = _parse_address(address)
-            shop_stats                      = _get_shop_stats(link)
-            # puts shop_stats
+            link_href                       = row.css('td').css('.sorting_1').css('span').text
+        #     img_src                         = link.css('._19wyhi7').css('img').attr('src').value.to_s
+        #     location_name                   = link.css('._1pkohes').css('p._1e3rlyy').text.to_s.strip
+        #     location_rating_and_no_reviews  = link.css('._1pkohes').css('._1ezh8s1').text
+        #     location_rating                 = location_rating_and_no_reviews.split("(").first.to_f
+        #     no_reviews                      = location_rating_and_no_reviews.split("(").last.to_i
+        #     address                         = link.css('._1pkohes').css('._4qdonk').text.to_s
+        #     parsed_address                  = _parse_address(address)
+        #     school_stats                      = _get_school_stats(link)
+        #     # puts school_stats
             
-            shop_hash = {link_href: link_href, img_src: img_src, location_name: location_name, location_rating: location_rating, no_reviews: no_reviews, address: address}
-            # puts shop_hash
-            shop_hash = shop_hash.merge(shop_stats)
-            shop = shop_hash.merge(parsed_address)
-            # shop = shop.merge(parsed_address)
-            shops << shop
+            school_hash = {link_href: link_href}#link_href}#, img_src: img_src, location_name: location_name, location_rating: location_rating, no_reviews: no_reviews, address: address}
+            puts school_hash
+        #     school_hash = school_hash.merge(school_stats)
+            school = school_hash#.merge(parsed_address)
+        #     # school = school.merge(parsed_address)
+            schools << school
         end
-        # puts shops
-        # puts "Stats count: #{shops.length}, class: #{shops.class}"
-        shops
+        # puts schools
+        # # puts "Stats count: #{schools.length}, class: #{schools.class}"
+        schools
 
     end
 

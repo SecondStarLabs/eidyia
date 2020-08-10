@@ -15,10 +15,11 @@ class Slicelife::Search
 
         client   = Slicelife::Client.new(connection: connection, routes: ROUTES)
         # response = Representation.new(client.search)
-
+        puts "got client"
         # shop_listing_in_city = self._create_representation
         response = client.search
-
+        puts "========="
+        puts "got response #{response}"
         # parse the nokogiri object in search_results
         search_results = _parse_response(response)
 
