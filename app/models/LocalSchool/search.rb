@@ -24,14 +24,14 @@ class LocalSchool::Search
         search_results = _parse_response(response)
 
         # # convert search_results to a collection of instances
-        # representation  = _create_representation(search_results)
+        representation  = _create_representation(search_results)
     end
 
     def _parse_response(response)
         LocalSchool::PageParser::Search.new(fragment: response).parse
     end
 
-    def _create_representation(array_of_shops)
+    def _create_representation(array_of_schools)
         schools = []
         array_of_schools.each do |school_info|
             # convert hash to an OpenStruct
