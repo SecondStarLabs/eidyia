@@ -5,10 +5,18 @@ class LocalSchool::Collector
         @place_kind     = place_kind
         @place_name     = place_name
         @place_state    = place_state
+
+        @updating       = false
     end
 
     def import
         place_method = "_#{@place_kind.downcase.gsub(" ", "_")}"
+        self.public_send(place_method)
+    end
+
+    def update
+        @updating       = true
+        place_method    = "_#{@place_kind.downcase.gsub(" ", "_")}"
         self.public_send(place_method)
     end
 
@@ -38,15 +46,21 @@ class LocalSchool::Collector
     end
 
     def _save_city_local_schools_to_schools(cities)
+        if updating_schools_in_cities?
+            cities.each {|c| c.school_digger_scan_done = 0}
+        end
+        
         cities.each do |c|
             puts "city: #{c.city_ascii}, state_abbr: #{c.state_id}, school_digger_scan_done: #{c.school_digger_scan_done}"
-            search          = LocalSchool::Search.new(city: c.city_ascii, state_abbr: c.state_id)
-            # we will skip schools that are already scanned
+            # we will skip cities of schools that are already scanned
             if _scan_already_completed?(c) == false
+                search          = LocalSchool::Search.new(city: c.city_ascii, state_abbr: c.state_id)
                 local_schools   = search.get
                 ## save_all needs help for when search has no results -- currently puts a not_available school in
                 schools         = LocalSchool::Importer.new(local_schools: local_schools).save_all            
             end
+            seconds_to_wait = rand(10) + 1
+            sleep seconds_to_wait
         end        
     end
 
@@ -62,6 +76,17 @@ class LocalSchool::Collector
         end
 
         done
+    end
+
+    def updating_schools_in_cities?
+        if @updating == true 
+            zero_school_digger_scan_done = true
+        else
+            zero_school_digger_scan_done = false
+        end
+
+        zero_school_digger_scan_done
+        
     end
 
 end

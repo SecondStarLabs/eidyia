@@ -28,7 +28,7 @@ class LocalSchool::Search
 
         ## city and state abbr not currently in scrape of school
         representation.each do |search_result|
-        #     search_result.city          = @city
+            search_result.city          = @city
             search_result.state_abbr    = @state_abbr
         end
     end

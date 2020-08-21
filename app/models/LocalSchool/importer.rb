@@ -17,7 +17,7 @@ class LocalSchool::Importer
             count_tracker += 1
             puts "local_school location #{local_school.school_name}"
             school                                      = _initialize_school(local_school)
-            address                                     = " , #{local_school.city}, #{local_school.state_abbr}" 
+            address                                     = "#{local_school.street_one}, #{local_school.city}, #{local_school.state_abbr}" 
             school.name                                 = local_school.school_name
             school.schooldigger_link                    = local_school.link_href
             parsed_address                              =  _parse_address(address)

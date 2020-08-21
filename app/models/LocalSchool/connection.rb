@@ -1,13 +1,9 @@
-require 'watir'
-require 'webdrivers'
+# require 'watir'
+# require 'webdrivers'
 require 'uri'
+require 'mechanize'
 
 class LocalSchool::Connection
-    # def initialize(city: "San Francisco", state_abbr: "CA", shop: nil)
-    #     @city           = city
-    #     @state_abbr     = state_abbr
-    #     @shop           = shop
-    # end
 
   DEFAULT_API_VERSION = "1"
   DEFAULT_BASE_URI    = 'https://www.schooldigger.com'
@@ -35,16 +31,16 @@ class LocalSchool::Connection
         # @has_seach_results = true
         relative_path = _append_relative_path(relative_path)
         puts "relative_path: #{relative_path}, query=#{@query.merge(query)} "
-        #\            call the connection for records
-    # connection.send(http_method, relative_path, *request_arguments)
+
 
         # relative_path = _add_api_version(relative_path)
         url = [@base_uri, relative_path, "?", @query.merge(query).to_query].join("")
-        # url = [url, query.to_query]
         puts url
 
-        browser = Watir::Browser.new
-        browser.goto(url)
+        agent = Mechanize.new
+        browser = agent.get(url)
+        # browser = Watir::Browser.new
+        # browser.goto(url)
             
         # https://www.schooldigger.com/go/CA/city/Pacifica/search.aspx
 
@@ -52,7 +48,7 @@ class LocalSchool::Connection
 
         # wait and capture test results if they exist
         begin
-            js_doc  = browser.div(class: /bsRTable/)#.wait_until(timeout = 30, &:present?)
+            js_doc  = browser.css('div.bsRTable')
             
         rescue
             puts "waited more than thirty seconds without seeing search results"
@@ -66,15 +62,13 @@ class LocalSchool::Connection
         end
         
         if @has_search_results != false
-            js_doc  = browser.body.wait_until(&:present?)
+            js_doc  = browser.css('body')
 
             @doc     = Nokogiri::HTML.parse(js_doc.inner_html)
             puts "### Success, Search for nodes by css"
             # links_fragment = @doc.css('._1j8jxoz').first
             puts "======"
         end
-
-        browser.close
         @doc
     end
 
