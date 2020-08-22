@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schooldigger_link: MyText
+  name: MyString
+  kind: MyString
+  grades: MyString
+  district: MyString
+  schooldigger_district_link: MyText
+  enrollment: MyString
+  student_teacher_ratio: 1.5
+  free_discounted_lunch_recipients: 1.5
+  school_digger_rating: 1.5
+  schooldigger_id: MyString
+
+two:
+  schooldigger_link: MyText
+  name: MyString
+  kind: MyString
+  grades: MyString
+  district: MyString
+  schooldigger_district_link: MyText
+  enrollment: MyString
+  student_teacher_ratio: 1.5
+  free_discounted_lunch_recipients: 1.5
+  school_digger_rating: 1.5
+  schooldigger_id: MyString

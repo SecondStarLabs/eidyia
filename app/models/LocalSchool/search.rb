@@ -19,32 +19,53 @@ class LocalSchool::Search
         # shop_listing_in_city = self._create_representation
         response = client.search
         puts "========="
-        puts "got response #{response}"
+        # puts "got response #{response}"
         # # parse the nokogiri object in search_results
         search_results = _parse_response(response)
 
         # # convert search_results to a collection of instances
-        # representation  = _create_representation(search_results)
+        representation  = _create_representation(search_results)
+
+        ## city and state abbr not currently in scrape of school
+        representation.each do |search_result|
+            search_result.city          = @city
+            search_result.state_abbr    = @state_abbr
+        end
     end
 
     def _parse_response(response)
         LocalSchool::PageParser::Search.new(fragment: response).parse
     end
 
-    def _create_representation(array_of_shops)
+    def _create_representation(array_of_schools)
         schools = []
         array_of_schools.each do |school_info|
             # convert hash to an OpenStruct
-            school = LocalSchool::ResponseFormatter::SearchResult.new
-            LocalSchool::Doppelganger::SearchResultRepesenter
-                .new(school)
-                .from_json(school_info.to_json)            
+            school = OpenStruct.new(school_info)
+            # school = LocalSchool::Doppelganger::SearchResultRepesenter
+            #     .new(school)
+            #     .from_json(school_info.to_json)            
             schools << school
 
         end
         schools
     end
 
+    # def _create_representation(array_of_shops)
+    #     shops = []
+    #     array_of_shops.each do |shop_info|
+    #         # convert hash to an OpenStruct
+    #         shop = Slicelife::ResponseFormatter::SearchResult.new
+    #         Slicelife::Doppelganger::SearchResultRepesenter
+    #             .new(shop)
+    #             .from_json(shop_info.to_json)            
+    #         shops << shop
+
+    #     end
+    #     shops
+    # end
+
+    
     # def _create_address
     #     # 'Salt Lake City, UT, USA'
     #     address = [city, state_abbr, "USA"].join(", ")
