@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_08_054224) do
+ActiveRecord::Schema.define(version: 2020_08_23_023952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_054224) do
     t.string "zips"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "school_digger_scan_done", precision: 6, scale: 4, default: "0.0", null: false
   end
 
   create_table "eateries", force: :cascade do |t|
@@ -82,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_08_08_054224) do
     t.text "source_url"
     t.decimal "order_minimum_low"
     t.decimal "order_minimum_high"
+    t.text "website"
+    t.integer "crm_id"
     t.index ["city_id"], name: "index_eateries_on_city_id"
   end
 
@@ -136,6 +139,26 @@ ActiveRecord::Schema.define(version: 2020_08_08_054224) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "schools", force: :cascade do |t|
+    t.text "schooldigger_link"
+    t.string "name"
+    t.string "kind"
+    t.string "grades"
+    t.string "district"
+    t.text "schooldigger_district_link"
+    t.integer "enrollment"
+    t.float "student_teacher_ratio"
+    t.float "free_discounted_lunch_recipients"
+    t.float "school_digger_rating"
+    t.string "schooldigger_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "city_id", null: false
+    t.string "street_one"
+    t.string "street_two"
+    t.index ["city_id"], name: "index_schools_on_city_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "provider"
@@ -169,5 +192,6 @@ ActiveRecord::Schema.define(version: 2020_08_08_054224) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "eateries", "cities"
   add_foreign_key "import_cells", "import_tables"
+  add_foreign_key "schools", "cities"
   add_foreign_key "services", "users"
 end

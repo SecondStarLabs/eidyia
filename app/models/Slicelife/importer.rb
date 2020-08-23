@@ -20,7 +20,8 @@ class Slicelife::Importer
                 eatery.min_wait           = shop.min_wait_time
                 eatery.max_wait           = shop.max_wait_time
                 eatery.delivery           = shop.delivery
-                eatery.source_url         = shop.link_href                    
+                eatery.source_url         = shop.link_href
+                eatery.website            = shop.website || _set_default_website_url(eatery: eatery, shop: shop)
             eatery.save!
         end
     end
@@ -45,6 +46,16 @@ class Slicelife::Importer
         city        = address_array[1]
         state_abbr  = address_array[2]
         {street_one: street_one, city: city, state_abbr: state_abbr}
+    end
+
+    def _set_default_website_url(eatery: eatery, shop: shop)
+        #use if website is not provided by slicelife.com
+        eatery_website = eatery.website
+        if eatery_website.blank?
+            eatery_website = [shop.location_name.parameterize.downcase, "bayarea.pizza"].join(".")
+        end
+
+        eatery_website
     end
 
 
