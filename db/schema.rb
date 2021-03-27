@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_08_11_152724) do
+=======
+ActiveRecord::Schema.define(version: 2020_08_23_023952) do
+>>>>>>> feature/hubspot_connection
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +87,8 @@ ActiveRecord::Schema.define(version: 2020_08_11_152724) do
     t.text "source_url"
     t.decimal "order_minimum_low"
     t.decimal "order_minimum_high"
+    t.text "website"
+    t.integer "crm_id"
     t.index ["city_id"], name: "index_eateries_on_city_id"
   end
 
