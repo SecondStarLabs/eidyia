@@ -238,7 +238,7 @@ GEM
     pg (1.2.3)
     popper_js (1.16.0)
     public_suffix (4.0.5)
-    puma (4.3.5)
+    puma (5.2.2)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-proxy (0.6.5)
@@ -384,7 +384,7 @@ DEPENDENCIES
   omniauth-github (~> 1.4)
   omniauth-twitter (~> 1.4)
   pg (>= 0.18, < 2.0)
-  puma (~> 4.1)
+  puma (~> 5.2.2)
   rails (~> 6.0.2, >= 6.0.2.2)
   representable (~> 3.0, >= 3.0.4)
   sass-rails (>= 6)
@@ -402,7 +402,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.1.4

@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 5.2.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -75,7 +75,6 @@ gem 'image_processing'
 ## customized
   #   data_collection
   gem 'watir', '~> 6.16', '>= 6.16.5'
-  gem 'webdrivers', '~> 4.4', '>= 4.4.1'
   gem 'representable', '~> 3.0', '>= 3.0.4'
   gem 'hubspot-ruby', '~> 0.9.0'
   gem 'mechanize', '~> 2.7', '>= 2.7.6'
