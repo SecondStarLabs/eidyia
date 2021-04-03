@@ -1,6 +1,6 @@
 require 'nokogiri'
 class LocalSchool::PageParser::Search
-    def initialize(fragment: fragment)
+    def initialize(fragment: )
         @fragment = fragment
     end
 
